@@ -8,57 +8,65 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(),View.OnTouchListener,GestureDetector.OnGestureListener
+class MainActivity : AppCompatActivity(),GestureDetector.OnGestureListener
     ,GestureDetector.OnDoubleTapListener{
+
+    lateinit var gDetector: GestureDetector
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        gDetector = GestureDetector(this, this)
     }
-
-    override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-        if (txv.text == "歡迎"){
-            txv.text = "螢幕觸控"
-        }
-        else{
-            txv.text = "歡迎"
-        }
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        gDetector.onTouchEvent(event)
         return true
     }
 
+
+
     override fun onDown(p0: MotionEvent?): Boolean {
-        TODO("Not yet implemented")
+        txv.text = "按下"
+        return true
     }
 
     override fun onShowPress(p0: MotionEvent?) {
-        TODO("Not yet implemented")
+        txv.text = "按下後無後續動作"
     }
 
     override fun onSingleTapUp(p0: MotionEvent?): Boolean {
-        TODO("Not yet implemented")
+        txv.text = "短按"
+        return true
     }
 
-    override fun onScroll(p0: MotionEvent?, p1: MotionEvent?, p2: Float, p3: Float): Boolean {
-        TODO("Not yet implemented")
+    override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+        txv.text = "拖曳\nx1y1: " +  e1?.getX().toString() + ", " + e1?.getY().toString() +
+                "\nx2y2: " + e2?.getX().toString() + ", " + e2?.getY().toString()
+        return true
     }
 
     override fun onLongPress(p0: MotionEvent?) {
-        TODO("Not yet implemented")
+        txv.text = "長按"
     }
 
-    override fun onFling(p0: MotionEvent?, p1: MotionEvent?, p2: Float, p3: Float): Boolean {
-        TODO("Not yet implemented")
+    override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+        txv.text = "快滑\nx1y1: " + e1?.getX().toString() + ", " + e1?.getY().toString() +
+                "\nx2y2: " + e2?.getX().toString() + ", " + e2?.getY().toString() +
+                "\nX軸Y軸速度:" + velocityX.toString() + ", " +  velocityY.toString()
+        return true
     }
 
     override fun onSingleTapConfirmed(p0: MotionEvent?): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
     override fun onDoubleTap(p0: MotionEvent?): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
     override fun onDoubleTapEvent(p0: MotionEvent?): Boolean {
-        TODO("Not yet implemented")
+        txv.text = "連續點兩下"
+        return true
     }
 
 
