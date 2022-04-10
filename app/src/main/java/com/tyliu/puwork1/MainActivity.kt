@@ -24,11 +24,10 @@ class MainActivity : AppCompatActivity(),GestureDetector.OnGestureListener
             4 -> img.setImageResource(R.drawable.ph4)
             5 -> img.setImageResource(R.drawable.ph5)
         }*/
-        txv.text = PictureNo.toString()
+        //txv.text = PictureNo.toString()
         var res:Int = getResources().getIdentifier("ph" + PictureNo.toString(),
             "drawable", getPackageName())
         img.setImageResource(res)
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +44,6 @@ class MainActivity : AppCompatActivity(),GestureDetector.OnGestureListener
         gDetector.onTouchEvent(event)
         return true
     }
-
 
     override fun onDown(p0: MotionEvent?): Boolean {
         return true
